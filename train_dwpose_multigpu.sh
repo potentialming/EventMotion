@@ -1,0 +1,23 @@
+accelerate launch --config_file ./deepspeed.yaml train_svd_dwpose_multi_gpu.py \
+    --pretrained_model_name_or_path=stabilityai/stable-video-diffusion-img2vid-xt-1-1 \
+    --cache_dir=/root/autodl-tmp/models_cache \
+    --output_dir=outputs_dwpose \
+    --base_folder=/root/autodl-tmp/TikTok_event \
+    --validation_image=example/reference/01.jpeg \
+    --validation_control_folder=/root/autodl-tmp/TikTok_event/dwpose_val_set/video_part \
+    --per_gpu_batch_size=1 \
+    --gradient_accumulation_steps=4 \
+    --max_train_steps=50000 \
+    --width=128 \
+    --height=256 \
+    --checkpointing_steps=10000 \
+    --checkpoints_total_limit=5 \
+    --learning_rate=1e-5 \
+    --lr_warmup_steps=0 \
+    --seed=2024 \
+    --mixed_precision="fp16" \
+    --validation_steps=100 \
+    --num_frames=7 \
+    --gradient_checkpointing \
+    --enable_xformers_memory_efficient_attention \
+    --use_8bit_adam
